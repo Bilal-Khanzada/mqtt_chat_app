@@ -1,0 +1,29 @@
+name: 🚀 Deploy to EC2 on Push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v2
+
+      - name: 🔧 Deploy to EC2
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd ~/mqtt-chat-app
+            git pull origin main
+            npm install
+            npm run build
+            pm2 restart chat-app || pm2 serve dist 3000 --spa --name chat-app
+            pm2 save
