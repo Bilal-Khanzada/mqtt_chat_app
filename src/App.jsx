@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import mqtt from 'mqtt';
-import './App.css'; // Importing thee CSS
+import './App.css'; // Importing the CSS
 
 const brokerUrl = 'wss://test.mosquitto.org:8081';
 const topic = 'react-chat-room';
