@@ -27,3 +27,5 @@ jobs:
             npm run build
             pm2 restart chat-app || pm2 serve dist 3000 --spa --name chat-app
             pm2 save
+          strict: false
+          
